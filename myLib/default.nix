@@ -2,34 +2,38 @@
   lib,
   ...
 }: rec {
-  filesIn = dir: (map (fname: dir + fname)
-    (builtins.attrNames (builtins.readDir dir)));
+  filesIn = dir:
+    builtins.map
+    (fname: dir + "/${fname}")
+    (builtins.attrNames (builtins.readDir dir));
 
   fileNameOf = path: (builtins.head (builtins.split "\\." (baseNameOf path)));
 
-  mkOptional = { name, path, origin, default ? false, ... }@args: { config, ... }@margs: let
+  mkOptional = { name, path, origin, ... }@args: { pkgs, config, ... }@margs: let
     module = (import path margs);
+    moduleNoImports = builtins.removeAttrs module [ "imports" "options" ];
   in {
-    imports = [
-      (module.imports or [])
-    ];
-    options = module.options ++ {
-      "${origin}"."${name}".enable = lib.mkEnableOption {
-        inherit default;
-        description = "Whether to enable the ${name} ${origin} module.";
+    imports = [] ++
+      (module.imports or []);
+    options =
+      lib.recursiveUpdate
+      (module.options or {})
+      {
+        "${origin}"."${name}".enable = lib.mkEnableOption {
+          description = "Whether to enable the ${name} ${origin} module.";
+        };
       };
-    };
-    config = lib.mkIf config."${origin}"."${name}".enable module.config;
+    config = (lib.mkIf config."${origin}"."${name}".enable (module.config or moduleNoImports));
   };
 
-  mkModulesOptional = { dir, origin, default }:
+  mkModulesOptional = { dir, origin }:
     builtins.map
     (f: let
       fileName = fileNameOf f;
     in (mkOptional {
       name = fileName;
       path = f;
-      inherit origin default;
+      origin = origin;
     }))
     (filesIn dir);
 }

@@ -25,11 +25,15 @@
       experimental-features = "nix-command flakes";
       flake-registry = "";
       nix-path = config.nix.nixPath;
+      auto-optimise-store = true;
     };
     channel.enable = false;
 
+    optimise.automatic = true;
+
     registry = lib.mapAttrs (_: flake: {inherit flake;}) flakeInputs;
     nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
+
   };
 }
 

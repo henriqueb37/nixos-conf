@@ -1,22 +1,25 @@
 {
-  inputs,
   pkgs,
+  inputs,
   config,
   lib,
   ...
 }: {
-  options.myNixOS.home-users = lib.mkOption {
-    type = lib.types.attrsOf (lib.types.submodule {
-      options = {
-        userConfig = lib.mkOption {
-          default = ./../hosts/aquamarine/home.nix;
+  options = {
+    myNixOS.home-users = lib.mkOption {
+      type = lib.types.attrsOf (lib.types.submodule {
+        options = {
+          userConfig = lib.mkOption {
+            default = ./../hosts/aquamarine/home.nix;
+          };
+          userSettings = lib.mkOption {
+            default = {};
+            example = "{}";
+          };
         };
-        userSettings = lib.mkOption {
-          default = {};
-          example = "{}";
-        };
-      };
-    });
+      });
+      default = {};
+    };
   };
 
   config = {
