@@ -3,6 +3,7 @@
   inputs,
   config,
   lib,
+  myLib,
   ...
 }: {
   options = {
@@ -38,9 +39,10 @@
       useGlobalPkgs = true;
       useUserPackages = true;
       extraSpecialArgs = {
-        inherit inputs;
+        inherit inputs myLib;
         outputs = inputs.self.outputs;
       };
+      backupFileExtension = "backup";
       users =
         builtins.mapAttrs (name: user: {...}: {
           imports = [
