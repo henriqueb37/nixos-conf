@@ -17,6 +17,7 @@
       kde.enable = lib.mkDefault true;
       nix.enable = lib.mkDefault true;
       users.enable = lib.mkDefault true;
+      gaming.enable = lib.mkDefault false;
     };
   };
 }

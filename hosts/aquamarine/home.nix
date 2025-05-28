@@ -1,5 +1,6 @@
 {
   outputs,
+  lib,
   ...
 }: {
   imports = [
@@ -8,5 +9,8 @@
 
   config = {
     home.stateVersion = "24.11";
+    myHomeManager = {
+      vpn.enable = lib.mkForce true;
+    };
   };
 }

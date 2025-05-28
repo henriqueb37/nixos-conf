@@ -1,8 +1,6 @@
 {
-  inputs,
   outputs,
   lib,
-  config,
   pkgs,
   ...
 }: {
@@ -18,14 +16,9 @@
           userConfig = ./home.nix;
         };
       };
-    };
 
-    # users.users.henrique = {
-    #   initialPassword = "password";
-    #   isNormalUser = true;
-    #   extraGroups = ["wheel" "networkmanager" "video" "audio" "input" "uinput"];
-    #   shell = pkgs.zsh;
-    # };
+      gaming.enable = lib.mkForce true;
+    };
 
     hardware.uinput.enable = true;
     services.udev.extraRules = ''
@@ -56,9 +49,6 @@
 
     programs.zsh.enable = true;
     programs.firefox.enable = true;
-    programs.steam.enable = true;
-    programs.steam.gamescopeSession.enable = true;
-    programs.gamemode.enable = true;
 
     environment.systemPackages = with pkgs; [
       wget
@@ -70,7 +60,6 @@
       wl-clipboard
       fastfetch
       vim
-      neovim
       obsidian
       discord
       goofcord
@@ -79,7 +68,6 @@
       kitty
       tmux
       kanata
-      hyprpaper
       dunst
       wofi
       vlc
@@ -91,8 +79,6 @@
     ];
 
     environment.sessionVariables = {
-      STEAM_EXTRA_COMPAT_TOOLS_PATHS =
-        "/home/henrique/.steam/root/compatibilitytools.d/";
       ZDOTDIR = "/home/henrique/.config/zsh/";
       EDITOR = "nvim";
     };
