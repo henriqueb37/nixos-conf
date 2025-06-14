@@ -24,10 +24,9 @@
     services.udev.extraRules = ''
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONS+="static_node=uinput"
     '';
+    boot.supportedFilesystems = [ "ntfs" ];
 
     users.groups.uinput = { };
-
-    services.syncthing.enable = true;
 
     hardware.graphics.enable = true;
     services.xserver.videoDrivers = [ "amdgpu" ];
