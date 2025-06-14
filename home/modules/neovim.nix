@@ -5,8 +5,8 @@
 }: {
   home.packages = with pkgs; [ lazygit ];
   programs.neovim.enable = true;
-  home.file.".config/nvim" = {
-    source = config.lib.file.mkOutOfStoreSymlink "/home/henrique/.dotfiles/.config/nvim";
+  xdg.configFile."nvim" = {
+    source = config.lib.file.mkOutOfStoreSymlink "${config.dotfileDir}/.config/nvim";
     recursive = true;
   };
 }

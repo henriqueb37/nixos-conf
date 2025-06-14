@@ -1,4 +1,5 @@
 {
+  inputs,
   pkgs,
   config,
   ...
@@ -10,7 +11,7 @@
       package = null;
       portalPackage = null;
       plugins = [
-        pkgs.hyprlandPlugins.hyprscrolling
+        inputs.hyprland-plugins.packages.${pkgs.stdenv.hostPlatform.system}.hyprscrolling
       ];
       extraConfig = ''
         source = ~/.config/hypr/hyprconf.conf
@@ -18,7 +19,7 @@
     };
 
     # I don't wanna have to rebuild every time i change something
-    home.file.".config/hypr/hyprconf.conf".source = config.lib.file.mkOutOfStoreSymlink "/home/henrique/.dotfiles/.config/hypr/hyprland.conf";
+    xdg.configFile."hypr/hyprconf.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfileDir}/.config/hypr/hyprland.conf";
 
     home.sessionVariables.NIXOS_OZONE_WL = "1";
   };
