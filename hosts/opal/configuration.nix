@@ -20,6 +20,8 @@
       hyprland.enable = lib.mkForce false;
       kde.enable = lib.mkForce false;
       bluetooth.enable = lib.mkForce false;
+
+      grub.efi.enable = false;
     };
 
     # hardware.graphics.enable = true;
