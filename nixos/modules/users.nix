@@ -26,13 +26,14 @@
   config = {
     users.users = builtins.mapAttrs (
       name: user:
-        {
-          initialPassword = "password";
-          isNormalUser = true;
-          extraGroups = ["wheel" "networkmanager" "video" "audio" "input" "uinput"];
-          shell = pkgs.zsh;
-        }
-        // user.userSettings
+        (lib.recursiveUpdate
+          {
+            initialPassword = "password";
+            isNormalUser = true;
+            extraGroups = ["wheel" "networkmanager" "video" "audio" "input" "uinput" "libvirtd"];
+            shell = pkgs.zsh;
+          }
+          user.userSettings)
     ) (config.myNixOS.home-users);
 
     home-manager = {

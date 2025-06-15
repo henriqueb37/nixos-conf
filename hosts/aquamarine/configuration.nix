@@ -18,6 +18,7 @@
       };
 
       gaming.enable = lib.mkForce true;
+      virt-manager.enable = lib.mkForce true;
     };
 
     hardware.uinput.enable = true;
