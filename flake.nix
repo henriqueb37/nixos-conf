@@ -36,6 +36,14 @@
           ./hosts/aquamarine/configuration.nix
         ];
       };
+      # vm config
+      opal = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs outputs myLib; };
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./hosts/opal/configuration.nix
+        ];
+      };
     };
 
     nixosModules.default = ./nixos;
