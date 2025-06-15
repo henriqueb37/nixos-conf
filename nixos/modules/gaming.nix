@@ -5,34 +5,34 @@
   ...
 }: {
   options = {
-    gaming.gamemode.enable = lib.mkEnableOption {
-      gaming.description.enable = "Whether to enable gamemode.";
-      gaming.default.enable = true;
+    myNixOS.gaming.gamemode.enable = lib.mkOption {
+      description = "Whether to enable gamemode.";
+      default = true;
     };
-    gaming.gamescope.enable = lib.mkEnableOption {
-      gaming.description.enable = "Whether to enable gamescope.";
-      gaming.default.enable = true;
+    myNixOS.gaming.gamescope.enable = lib.mkOption {
+      description = "Whether to enable gamescope.";
+      default = true;
     };
-    gaming.steam.enable = lib.mkEnableOption {
-      gaming.description.enable = "Whether to enable steam.";
-      gaming.default.enable = true;
+    myNixOS.gaming.steam.enable = lib.mkOption {
+      description = "Whether to enable steam.";
+      default = true;
     };
-    gaming.heroic.enable = lib.mkEnableOption {
-      gaming.description.enable = "Whether to enable heroic games launcher.";
-      gaming.default.enable = true;
+    myNixOS.gaming.heroic.enable = lib.mkOption {
+      description = "Whether to enable heroic games launcher.";
+      default = true;
     };
   };
 
-  config.programs.gamemode.enable = lib.mkIf config.gaming.gamemode.enable true;
-  config.programs.gamescope.enable = lib.mkIf config.gaming.gamescope.enable true;
-  config.programs.steam.enable = lib.mkIf config.gaming.steam.enable true;
-  config.programs.steam.gamescopeSession.enable = lib.mkIf config.gaming.steam.enable && config.gaming.gamescope.enable true;
+  config.programs.gamemode.enable = lib.mkIf config.myNixOS.gaming.gamemode.enable true;
+  config.programs.gamescope.enable = lib.mkIf config.myNixOS.gaming.gamescope.enable true;
+  config.programs.steam.enable = lib.mkIf config.myNixOS.gaming.steam.enable true;
+  config.programs.steam.gamescopeSession.enable = lib.mkIf (config.myNixOS.gaming.steam.enable && config.myNixOS.gaming.gamescope.enable) true;
   environment = {
-    sessionVariables = lib.mkIf config.gaming.steam.enable {
+    sessionVariables = lib.mkIf config.myNixOS.gaming.steam.enable {
       STEAM_EXTRA_COMPAT_TOOLS_PATHS =
         "/home/henrique/.steam/root/compatibilitytools.d/";
     };
-    systemPackages = lib.mkIf config.gaming.heroic.enable (with pkgs; [
+    systemPackages = lib.mkIf config.myNixOS.gaming.heroic.enable (with pkgs; [
         heroic
     ]);
   };
