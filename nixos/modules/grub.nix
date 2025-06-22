@@ -19,7 +19,7 @@
       grub = {
         enable = true;
         efiSupport = lib.mkIf config.myNixOS.grub.efi.enable true;
-        device = "nodev";
+        device = lib.mkIf config.myNixOS.grub.efi.enable "nodev";
         useOSProber = true;
       };
     };

@@ -18,6 +18,7 @@
       };
 
       gaming.enable = lib.mkForce true;
+      gaming.minecraft.enable = lib.mkForce true;
       virt-manager.enable = lib.mkForce true;
     };
 
@@ -67,15 +68,15 @@
       lua
       kitty
       tmux
-      kanata
+      kanata-with-cmd
       dunst
       wofi
+      ags
       vlc
       playerctl
       yt-dlp
       pavucontrol
       protonup
-      heroic
     ];
 
     environment.sessionVariables = {
