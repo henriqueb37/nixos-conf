@@ -38,6 +38,6 @@
     };
     systemPackages = with pkgs; [] ++
       lib.optional config.myNixOS.gaming.heroic.enable heroic ++
-      lib.optional config.myNixOS.gaming.minecraft.enable prismlauncher;
+      lib.optionals config.myNixOS.gaming.minecraft.enable [ jdk24 prismlauncher ];
   };
 }
