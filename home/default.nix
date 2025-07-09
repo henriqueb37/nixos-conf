@@ -11,7 +11,7 @@
 
   options = {
     dotfileDir = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
       default = "${config.home.homeDirectory}/.dotfiles";
     };
   };
@@ -20,11 +20,13 @@
     myHomeManager = {
       hyprland.enable = lib.mkDefault true;
       neovim.enable = lib.mkDefault true;
+      emacs.enable = lib.mkDefault true;
       kitty.enable = lib.mkDefault true;
       vpn.enable = lib.mkDefault false;
       niri.enable = lib.mkDefault true;
       zsh.enable = lib.mkDefault true;
       syncthing.enable = lib.mkDefault false;
+      direnv.enable = lib.mkDefault true;
     };
   };
 }
