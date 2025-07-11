@@ -19,6 +19,7 @@
       users.enable = lib.mkDefault true;
       gaming.enable = lib.mkDefault false;
       niri.enable = lib.mkDefault true;
+      fonts.enable = lib.mkDefault true;
     };
   };
 }
