@@ -9,6 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
@@ -19,7 +24,7 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-stable,
+    stylix,
     home-manager,
     ...
   } @inputs: let
@@ -32,6 +37,7 @@
       aquamarine = nixpkgs.lib.nixosSystem {
         specialArgs = { inherit inputs outputs myLib; };
         modules = [
+          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           ./hosts/aquamarine/configuration.nix
         ];

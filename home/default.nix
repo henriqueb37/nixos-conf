@@ -18,7 +18,7 @@
 
   config = {
     myHomeManager = {
-      hyprland.enable = lib.mkDefault true;
+      hyprland.enable = lib.mkDefault false;
       neovim.enable = lib.mkDefault true;
       emacs.enable = lib.mkDefault true;
       kitty.enable = lib.mkDefault true;
@@ -27,6 +27,7 @@
       zsh.enable = lib.mkDefault true;
       syncthing.enable = lib.mkDefault false;
       direnv.enable = lib.mkDefault true;
+			intellij.enable = lib.mkDefault false;
     };
   };
 }

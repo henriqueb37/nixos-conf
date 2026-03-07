@@ -2,7 +2,8 @@
   outputs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     outputs.homeManagerModules.default
   ];
@@ -12,6 +13,8 @@
     myHomeManager = {
       vpn.enable = lib.mkForce true;
       syncthing.enable = lib.mkForce true;
+      intellij.enable = lib.mkForce true;
+      # emacs.enable = lib.mkForce false;
     };
   };
 }

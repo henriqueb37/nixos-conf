@@ -3,7 +3,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
     outputs.nixosModules.default
@@ -17,10 +18,31 @@
         };
       };
 
-      gaming.enable = lib.mkForce true;
-      gaming.minecraft.enable = lib.mkForce true;
+      gaming = {
+        enable = lib.mkForce true;
+        minecraft.enable = lib.mkForce true;
+        olympus.enable = lib.mkForce true;
+      };
       virt-manager.enable = lib.mkForce true;
     };
+
+    # nixpkgs.overlays = [
+    #   (import (fetchTarball {
+    #     # Pinned Emacs version
+    #     url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+    #     sha256 = "sha256:1i68icdikbf42xw2ikb8ic1cndbnc65n1qrmbl0mnqzcqmqxgrg0";
+    #   }))
+    # ];
+
+    nix.settings.substituters = [
+      "https://nix-community.cachix.org"
+    ];
+
+    nix.settings.trusted-public-keys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+
+    hardware.opentabletdriver.enable = true;
 
     hardware.uinput.enable = true;
     services.udev.extraRules = ''
@@ -35,10 +57,15 @@
 
     networking.hostName = "aquamarine";
     networking.networkmanager.enable = true;
+    networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
+    networking.firewall.checkReversePath = false;
+
+    # services.dnsmasq.enable = true;
+    # networking.firewall.allowedUDPPorts = [ 67 68 ];
 
     time.timeZone = "America/Bahia";
 
-    i18n.defaultLocale = "en_US.UTF-8";
+    i18n.defaultLocale = "pt_BR.UTF-8";
     console = {
       font = "Lat2-Terminus16";
       # keyMap = "us";
@@ -50,6 +77,11 @@
 
     programs.zsh.enable = true;
     programs.firefox.enable = true;
+
+    # services.mysql = {
+    #   enable = true;
+    #   package = pkgs.mysql80;
+    # };
 
     environment.systemPackages = with pkgs; [
       wget
@@ -63,7 +95,6 @@
       vim
       obsidian
       discord
-      goofcord
       yazi
       lua
       kitty
@@ -76,11 +107,28 @@
       playerctl
       yt-dlp
       pavucontrol
-      protonup
+      easyeffects
+      jupyter-all
+      logisim-evolution
+      brightnessctl
+      kdePackages.kolourpaint
+      krita
+      rnote
+      fastfetchMinimal
+      swww
+      blockbench
+      btop
+      thunderbird
+      kdePackages.kclock
+      aseprite
+      libreoffice-qt-fresh
+      clamav
+      rars
     ];
 
     environment.sessionVariables = {
       ZDOTDIR = "/home/henrique/.config/zsh/";
+      VISUAL = "nvim";
       EDITOR = "nvim";
     };
 

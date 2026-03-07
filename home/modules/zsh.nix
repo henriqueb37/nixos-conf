@@ -6,7 +6,7 @@
   xdg.configFile."zsh/zshenv.sh".source = config.lib.file.mkOutOfStoreSymlink "${config.dotfileDir}/.config/zsh/.zshenv";
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.xdg.configHome}/zsh";
     prezto = {
       enable = true;
       editor.keymap = "vi";
@@ -25,9 +25,9 @@
         "prompt"
       ];
       prompt.theme = "powerlevel10k";
+      extraConfig = ''
+        source ${config.xdg.configHome}/zsh/zshrc.sh
+      '';
     };
-    envExtra = ''
-      source ${config.xdg.configHome}/zsh/zshrc.sh
-    '';
   };
 }
