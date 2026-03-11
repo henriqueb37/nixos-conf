@@ -8,6 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    import-tree.url = "github:vic/import-tree";
 
     stylix = {
       url = "github:danth/stylix";
@@ -21,38 +26,7 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    stylix,
-    home-manager,
-    ...
-  } @inputs: let
-    inherit (self) outputs;
-    inherit (nixpkgs) lib;
-    myLib = import ./myLib { inherit lib; };
-  in {
-    nixosConfigurations = {
-      # laptop config
-      aquamarine = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs myLib; };
-        modules = [
-          stylix.nixosModules.stylix
-          home-manager.nixosModules.home-manager
-          ./hosts/aquamarine/configuration.nix
-        ];
-      };
-      # vm config
-      opal = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs outputs myLib; };
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./hosts/opal/configuration.nix
-        ];
-      };
-    };
-
-    nixosModules.default = ./nixos;
-    homeManagerModules.default = ./home;
-  };
+  outputs =
+    { flake-parts, import-tree, ... }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } (import-tree ./modules);
 }
