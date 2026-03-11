@@ -14,10 +14,11 @@
       imports = (
         with self.modules.nixos;
         [
-          cli
           audio
+          cli
           fonts
           grub
+          nix
           power
           users
         ]
@@ -59,8 +60,6 @@
         environment.sessionVariables = {
           EDITOR = "nvim";
         };
-
-        system.stateVersion = "24.11";
       };
     };
 }

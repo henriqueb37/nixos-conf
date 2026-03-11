@@ -25,6 +25,7 @@
           grub
           kde
           niri
+          nix
           power
           stylix
           users
@@ -122,8 +123,6 @@
           VISUAL = "nvim";
           EDITOR = "nvim";
         };
-
-        system.stateVersion = "24.11";
       };
     };
 }
