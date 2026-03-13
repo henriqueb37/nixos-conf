@@ -29,6 +29,8 @@
           power
           stylix
           users
+
+          uni-stuff
         ]
       );
 
@@ -44,6 +46,8 @@
             minecraft.enable = lib.mkForce true;
             olympus.enable = lib.mkForce true;
           };
+
+          uni-stuff.bd.enable = true;
         };
 
         # nixpkgs.overlays = [
@@ -97,11 +101,6 @@
 
         programs.zsh.enable = true;
         programs.firefox.enable = true;
-
-        # services.mysql = {
-        #   enable = true;
-        #   package = pkgs.mysql80;
-        # };
 
         environment.systemPackages = with pkgs; [
           obsidian
