@@ -3,9 +3,9 @@
     { pkgs, ... }:
     {
       programs.dconf.enable = true;
+      programs.virt-manager.enable = true;
 
       environment.systemPackages = with pkgs; [
-        virt-manager
         virt-viewer
         virtiofsd
         spice
@@ -14,6 +14,7 @@
         virtio-win
         win-spice
         adwaita-icon-theme
+        dnsmaq
       ];
 
       virtualisation = {
@@ -24,10 +25,11 @@
             # Deprecated
             # ovmf.enable = true;
             # ovmf.packages = [ pkgs.OVMFFull.fd ];
+            vhostUserPackages = with pkgs; [ virtiofsd ];
           };
         };
         spiceUSBRedirection.enable = true;
       };
-      services.spice-vdagentd.enable = true;
+      # services.spice-vdagentd.enable = true;
     };
 }
