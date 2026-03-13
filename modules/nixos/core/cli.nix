@@ -6,9 +6,12 @@
       btop
       fastfetch
       fd
+      file
       fzf
-      git
       gh
+      git
+      jq
+      jujutsu
       ripgrep
       tmux
       tree
