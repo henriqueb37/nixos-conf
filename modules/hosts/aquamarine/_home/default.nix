@@ -13,6 +13,7 @@
     nixDev
     syncthing
     vpn
+    theming
     zsh
   ]);
 
