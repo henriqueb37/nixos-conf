@@ -41,12 +41,6 @@
           nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
         };
 
-      environment.systemPackages = with pkgs; [
-        nixd
-        nil
-        nixfmt
-      ];
-
       system.stateVersion = "24.11";
     };
 }

@@ -10,6 +10,7 @@
     kitty
     neovim
     niri
+    nixDev
     syncthing
     vpn
     zsh
